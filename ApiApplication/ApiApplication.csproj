@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Common\Common.csproj" />
       <ProjectReference Include="..\Configuration\Configuration.csproj" />
       <ProjectReference Include="..\Repository\Repository.csproj" />
     </ItemGroup>

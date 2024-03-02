@@ -1,7 +1,6 @@
-﻿using System.Diagnostics;
+﻿using CommonInterfaces.Configuration;
 using Configuration;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Options;
 using Repository.Models;
 using Repository.Models.BaseEntities;
@@ -10,9 +9,9 @@ namespace Repository;
 
 public class ChronoContext : DbContext
 {
-    private readonly AppSettings _appSettings;
+    private readonly IAppSettings _appSettings;
 
-    public ChronoContext(IOptions<AppSettings> appSettings)
+    public ChronoContext(IOptions<IAppSettings> appSettings)
     {
         _appSettings = appSettings.Value;
     }

@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{FA3BDE75-4AB7-4FC3-B5E4-948E9E67FA7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowApplication", "WorkflowApplication\WorkflowApplication.csproj", "{B8C385FE-F668-49E2-9BC6-67F404E454E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonInterfaces", "CommonInterfaces\CommonInterfaces.csproj", "{7A997276-4DCA-491F-9730-B92D6F89DF7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{FA3BDE75-4AB7-4FC3-B5E4-948E9E67FA7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA3BDE75-4AB7-4FC3-B5E4-948E9E67FA7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA3BDE75-4AB7-4FC3-B5E4-948E9E67FA7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8C385FE-F668-49E2-9BC6-67F404E454E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8C385FE-F668-49E2-9BC6-67F404E454E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8C385FE-F668-49E2-9BC6-67F404E454E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8C385FE-F668-49E2-9BC6-67F404E454E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A997276-4DCA-491F-9730-B92D6F89DF7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A997276-4DCA-491F-9730-B92D6F89DF7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A997276-4DCA-491F-9730-B92D6F89DF7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A997276-4DCA-491F-9730-B92D6F89DF7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

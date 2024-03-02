@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Common.Wrappers;
+namespace CommonModels.Wrappers;
 
 public class Secret<T>
 {

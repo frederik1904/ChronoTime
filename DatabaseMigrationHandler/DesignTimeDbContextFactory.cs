@@ -1,4 +1,5 @@
-﻿using Configuration;
+﻿using CommonInterfaces.Configuration;
+using Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,7 @@ namespace DatabaseMigrationHandler;
 
             services.AddOptions();   
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
+            services.AddScoped<IAppSettings, AppSettings>();
             serviceProvider = services.BuildServiceProvider();
             
             return new ChronoContext(serviceProvider.GetService<IOptions<AppSettings>>() ?? throw new InvalidOperationException());

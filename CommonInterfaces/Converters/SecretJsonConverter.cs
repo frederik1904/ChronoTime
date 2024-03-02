@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using Common.Wrappers;
+using CommonModels.Wrappers;
 
-namespace Common.Converters;
+namespace CommonModels.Converters;
 
 public class SecretJsonConverter<T> : JsonConverter<Secret<T>>
 {

@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 
+using CommonInterfaces.Configuration;
 using Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,7 @@ void RegisterServices()
 
     services.AddOptions();   
     services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
+    services.AddScoped<IAppSettings, AppSettings>();
     services.AddDbContext<ChronoContext>();
     serviceProvider = services.BuildServiceProvider();
 }
