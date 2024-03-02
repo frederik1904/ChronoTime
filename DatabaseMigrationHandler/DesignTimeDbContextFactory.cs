@@ -24,9 +24,9 @@ namespace DatabaseMigrationHandler;
 
             services.AddOptions();   
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            services.AddScoped<IAppSettings, AppSettings>();
+            services.AddSingleton<IAppSettings, AppSettingsSingleton>();
             serviceProvider = services.BuildServiceProvider();
             
-            return new ChronoContext(serviceProvider.GetService<IOptions<AppSettings>>() ?? throw new InvalidOperationException());
+            return new ChronoContext(serviceProvider.GetService<IAppSettings>() ?? throw new InvalidOperationException());
         }
     }

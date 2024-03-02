@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="UserContentModel">
-    <attachedFolders />
-    <explicitIncludes />
+    <attachedFolders>
+      <Path>Authentication</Path>
+    </attachedFolders>
+    <explicitIncludes>
+      <Path>Authentication</Path>
+      <Path>Authentication.Tests/Authentication.Tests.csproj</Path>
+      <Path>Authentication/Authentication.csproj</Path>
+    </explicitIncludes>
     <explicitExcludes />
   </component>
 </project>

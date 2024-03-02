@@ -13,14 +13,16 @@ public static class ServicesSetup
             .AddEndpointsApiExplorer()
             .AddSwaggerGen()
             .Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)))
+            .AddSingleton<IAppSettings, AppSettingsSingleton>()
             .AddDbContext<ChronoContext>()
-            .AddSingleton<IAppSettings, AppSettings>()
             .AddControllers();
         
         // Setup Repositories
-        RepositoryDependencyInjectionSetup.Setup(builder.Services);
+        new RepositoryDependencyBuilder()
+            .Build(builder.Services);
         
         //Setup Common
-        CommonDependencyInjectionSetup.Setup(builder.Services);
+        new CommonDependencyBuilder()
+            .Build(builder.Services);
     }
 }

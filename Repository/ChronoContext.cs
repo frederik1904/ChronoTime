@@ -7,19 +7,12 @@ using Repository.Models.BaseEntities;
 
 namespace Repository;
 
-public class ChronoContext : DbContext
+public class ChronoContext(IAppSettings appSettings) : DbContext
 {
-    private readonly IAppSettings _appSettings;
-
-    public ChronoContext(IOptions<IAppSettings> appSettings)
-    {
-        _appSettings = appSettings.Value;
-    }
-    
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql(
-            _appSettings.ConnectionString.ExposeSecret(), 
+            appSettings.GetConnectionString().ExposeSecret(), 
             b => b.MigrationsAssembly("DatabaseMigrationHandler")
             );
     }

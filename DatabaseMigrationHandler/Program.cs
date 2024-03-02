@@ -24,7 +24,7 @@ void RegisterServices()
 
     services.AddOptions();   
     services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-    services.AddScoped<IAppSettings, AppSettings>();
+    services.AddSingleton<IAppSettings, AppSettingsSingleton>();
     services.AddDbContext<ChronoContext>();
     serviceProvider = services.BuildServiceProvider();
 }
