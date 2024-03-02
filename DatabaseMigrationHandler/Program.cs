@@ -9,9 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 IServiceProvider? serviceProvider;
-string baseDirectory = Directory.GetCurrentDirectory();
+var baseDirectory = Directory.GetCurrentDirectory();
 
-Console.WriteLine(baseDirectory);
+
 void RegisterServices()
 {
     var services = new ServiceCollection();
@@ -40,11 +40,6 @@ void DisposeServices()
 }
 
 RegisterServices();
-
-using (var context = serviceProvider.GetService<ChronoContext>())
-{
-    Console.WriteLine(context.Users.Any());
-}
 
 DisposeServices();
 
