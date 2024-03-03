@@ -1,4 +1,5 @@
 using ApiApplication;
+using Authentication.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseMiddleware<JwtMiddleware>();
 app.UseRouting();
 app.MapControllers();
+app.UseAuthorization();
+
 app.Run();

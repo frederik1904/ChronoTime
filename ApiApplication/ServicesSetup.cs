@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Authentication;
+using Common;
 using CommonInterfaces.Configuration;
 using Configuration;
 using Repository;
@@ -15,6 +16,7 @@ public static class ServicesSetup
             .Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)))
             .AddSingleton<IAppSettings, AppSettingsSingleton>()
             .AddDbContext<ChronoContext>()
+            .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
             .AddControllers();
         
         // Setup Repositories
@@ -23,6 +25,10 @@ public static class ServicesSetup
         
         //Setup Common
         new CommonDependencyBuilder()
+            .Build(builder.Services);
+        
+        //Setup Auth
+        new AuthenticationDependencyInjectionBuilder()
             .Build(builder.Services);
     }
 }
