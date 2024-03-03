@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CommonInterfaces\CommonInterfaces.csproj" />
+      <ProjectReference Include="..\Repository\Repository.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -25,7 +25,7 @@ public class JwtMiddleware(IAppSettings appSettings, RequestDelegate next)
         try
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(appSettings.GetSecret().ToString());
+            var key = Encoding.ASCII.GetBytes(appSettings.GetSecret().ExposeSecret());
 
             tokenHandler.ValidateToken(token, new TokenValidationParameters
             {

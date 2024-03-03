@@ -1,6 +1,8 @@
 ﻿using Common.Services;
 using CommonInterfaces.Configuration;
+using CommonInterfaces.Models.Authentication;
 using CommonInterfaces.Services;
+using CommonInterfaces.Services.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Common;
@@ -9,7 +11,9 @@ public class CommonDependencyBuilder
 {
     private Dictionary<Type, Type> _dependencies = new()
     {
-        {typeof(IUserService), typeof(UserServiceImpl)}
+        {typeof(IUserService), typeof(UserServiceImpl)},
+        {typeof(ITransactionService), typeof(TransactionServiceService)},
+        {typeof(ISecurityUserService), typeof(UserServiceImpl)}
     };
 
 

@@ -12,4 +12,9 @@ public class UserRepository : BaseRepository<User>
     {
         return ChronoContext.Users.ToList();
     }
+
+    public User? GetByEmail(string email)
+    {
+        return ChronoContext.Users.FirstOrDefault(u => u.Email == email);
+    }
 }

@@ -1,4 +1,4 @@
-﻿namespace Repository.Models.BaseEntities;
+﻿namespace CommonInterfaces.Models.BaseEntities;
 
 public interface IBaseEntity
 {

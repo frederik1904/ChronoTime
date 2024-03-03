@@ -1,4 +1,4 @@
-﻿using Repository.Models.BaseEntities;
+﻿using CommonInterfaces.Models.BaseEntities;
 
 namespace Repository.Repositories;
 

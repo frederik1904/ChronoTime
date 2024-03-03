@@ -1,9 +1,9 @@
 ﻿using CommonInterfaces.Configuration;
+using CommonInterfaces.Models.BaseEntities;
 using Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Repository.Models;
-using Repository.Models.BaseEntities;
 
 namespace Repository;
 

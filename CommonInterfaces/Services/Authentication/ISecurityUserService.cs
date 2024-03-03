@@ -1,8 +1,9 @@
-﻿using CommonInterfaces.Models.Authentication;
+﻿using CommonInterfaces.Models;
+using CommonInterfaces.Models.Authentication;
 
 namespace CommonInterfaces.Services.Authentication;
 
 public interface ISecurityUserService
 {
-    ISecurityUser? GetById(Guid guid);
+    IUser? GetById(Guid guid);
 }
