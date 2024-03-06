@@ -22,80 +22,6 @@ namespace DatabaseMigrationHandler.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("CommonInterfaces.Models.AUser", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("Changed")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("character varying(5)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("HashAlgorithmType")
-                        .HasColumnType("integer");
-
-                    b.Property<byte[]>("Password")
-                        .IsRequired()
-                        .HasColumnType("bytea");
-
-                    b.Property<byte[]>("Salt")
-                        .HasColumnType("bytea");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AUser");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("AUser");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("CommonInterfaces.Models.TimeManagement.Topic", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("Changed")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("character varying(5)");
-
-                    b.Property<string>("DisplayName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Topic");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Topic");
-
-                    b.UseTphMappingStrategy();
-                });
-
             modelBuilder.Entity("Repository.Models.TimeManagement.TimeRegistration", b =>
                 {
                     b.Property<Guid>("Id")
@@ -129,27 +55,69 @@ namespace DatabaseMigrationHandler.Migrations
                     b.ToTable("TimeRegistrations");
                 });
 
-            modelBuilder.Entity("Repository.Models.User", b =>
-                {
-                    b.HasBaseType("CommonInterfaces.Models.AUser");
-
-                    b.HasDiscriminator().HasValue("User");
-                });
-
             modelBuilder.Entity("Repository.Models.TimeManagement.Topic", b =>
                 {
-                    b.HasBaseType("CommonInterfaces.Models.TimeManagement.Topic");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.HasDiscriminator().HasValue("Topic");
+                    b.Property<DateTime>("Changed")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Topics");
+                });
+
+            modelBuilder.Entity("Repository.Models.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Changed")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("HashAlgorithmType")
+                        .HasColumnType("integer");
+
+                    b.Property<byte[]>("Password")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
+                    b.Property<byte[]>("Salt")
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Repository.Models.TimeManagement.TimeRegistration", b =>
                 {
-                    b.HasOne("CommonInterfaces.Models.TimeManagement.Topic", "Topic")
+                    b.HasOne("Repository.Models.TimeManagement.Topic", "Topic")
                         .WithMany()
                         .HasForeignKey("TopicId");
 
-                    b.HasOne("CommonInterfaces.Models.AUser", "User")
+                    b.HasOne("Repository.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
