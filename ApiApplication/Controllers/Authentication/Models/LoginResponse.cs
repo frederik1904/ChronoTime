@@ -4,7 +4,7 @@ namespace ApiApplication.Controllers.Authentication.Models;
 
 public class LoginResponse
 {
-    public LoginResponse(IUser? user, string token)
+    public LoginResponse(CommonInterfaces.Models.AUser? user, string token)
     {
         Username = user.Username;
         Id = user.Id;

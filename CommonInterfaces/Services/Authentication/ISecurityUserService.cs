@@ -5,5 +5,5 @@ namespace CommonInterfaces.Services.Authentication;
 
 public interface ISecurityUserService
 {
-    IUser? GetById(Guid guid);
+    AUser? GetById(Guid guid);
 }

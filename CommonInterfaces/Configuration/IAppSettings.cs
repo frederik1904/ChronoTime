@@ -1,4 +1,4 @@
-﻿using CommonModels.Wrappers;
+﻿using CommonInterfaces.Wrappers;
 
 namespace CommonInterfaces.Configuration;
 

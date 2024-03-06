@@ -7,16 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CommonInterfaces\CommonInterfaces.csproj" />
-      <ProjectReference Include="..\Repository\Repository.csproj" />
+        <ProjectReference Include="..\CommonInterfaces\CommonInterfaces.csproj"/>
+        <ProjectReference Include="..\Repository\Repository.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
-      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.0" />
+        <PackageReference Include="BCrypt.Net-Next" Version="4.0.3"/>
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.0"/>
     </ItemGroup>
-    
+
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     </ItemGroup>
 </Project>

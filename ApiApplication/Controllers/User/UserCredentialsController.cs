@@ -16,7 +16,7 @@ public class UserCredentialsController(ISecurityUserService userService) : Contr
     {
         var userId = (string)HttpContext.Items["User"]!;
         var user = userService.GetById(Guid.Parse(userId))!;
-        
+
         return new UserCredentialsResponse(user);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using CommonInterfaces.Models.Authentication;
-using CommonModels.Wrappers;
+using CommonInterfaces.Wrappers;
 
 namespace Authentication.Services.HashingAlgorithms;
 
@@ -18,15 +18,9 @@ public class HashAlgorithmSha256 : IHashAlgorithm
     {
         var plainTextWithSaltBytes = new byte[password.Count + salt.Count];
 
-        for (var i = 0; i < password.Count; i++)
-        {
-            plainTextWithSaltBytes[i] = password[i];
-        }
+        for (var i = 0; i < password.Count; i++) plainTextWithSaltBytes[i] = password[i];
 
-        for (var i = 0; i < salt.Count; i++)
-        {
-            plainTextWithSaltBytes[password.Count + i] = salt[i];
-        }
+        for (var i = 0; i < salt.Count; i++) plainTextWithSaltBytes[password.Count + i] = salt[i];
 
         return SHA256.HashData(plainTextWithSaltBytes);
     }
@@ -42,10 +36,7 @@ public class HashAlgorithmSha256 : IHashAlgorithm
     {
         var hashedPassword = GenerateSaltedHash(Encoding.ASCII.GetBytes(password.ExposeSecret()), passwordSalt.Salt
             ?? throw new InvalidOperationException("Salt cannot be null when SHA256 is used"));
-        if (hashedPassword.Length != passwordSalt.Password.Length)
-        {
-            return false;
-        }
+        if (hashedPassword.Length != passwordSalt.Password.Length) return false;
 
         return !hashedPassword.Where((t, i) => passwordSalt.Password[i] != t).Any();
     }

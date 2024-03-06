@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
+using CommonInterfaces.Wrappers;
 using CommonModels.Converters;
-using CommonModels.Wrappers;
 
 namespace ApiApplication.Controllers.Authentication.Models;
 

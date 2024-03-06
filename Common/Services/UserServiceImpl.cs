@@ -4,7 +4,7 @@ using CommonInterfaces.Models;
 using CommonInterfaces.Models.Authentication;
 using CommonInterfaces.Services;
 using CommonInterfaces.Services.Authentication;
-using CommonModels.Wrappers;
+using CommonInterfaces.Wrappers;
 using Repository.Models;
 using Repository.Repositories;
 
@@ -17,24 +17,24 @@ public class UserServiceImpl(UserRepository userRepository, IAuthentication auth
         return userRepository.GetAll().Select(user => user.Id).ToList();
     }
 
-    public IUser? GetUserByEmail(string email)
+    public AUser? GetUserByEmail(string email)
     {
         return userRepository.GetByEmail(email);
     }
 
-    public bool CheckIfPasswordsMatchAndUpgradeIfNeeded(IUser user, Secret<string> password)
+    public bool CheckIfPasswordsMatchAndUpgradeIfNeeded(AUser aUser, Secret<string> password)
     {
-        var doesMatch = authentication.ComparePasswords(user, password);
+        var doesMatch = authentication.ComparePasswords(aUser, password);
 
-        if (doesMatch && user.HashAlgorithmType != authentication.GetCurrentAlgorithmType())
-            UpdatePasswordForUser(password, user);
+        if (doesMatch && aUser.HashAlgorithmType != authentication.GetCurrentAlgorithmType())
+            UpdatePasswordForUser(password, aUser);
 
         return doesMatch;
     }
 
-    public IUser? RegisterUser(ValidatedUserApplicant validatedUser)
+    public AUser? RegisterUser(ValidatedUserApplicant validatedUser)
     {
-        var user = new User
+        var user = new Repository.Models.User()
         {
             Email = validatedUser.Email.Email,
             Username = validatedUser.Username.Username,
@@ -45,16 +45,16 @@ public class UserServiceImpl(UserRepository userRepository, IAuthentication auth
         return userRepository.Save(user);
     }
 
-    public IUser? GetById(Guid guid)
+    public AUser? GetById(Guid guid)
     {
         return userRepository.GetById(guid);
     }
-    
-    private void UpdatePasswordForUser(Secret<string> password, IUser user)
+
+    private void UpdatePasswordForUser(Secret<string> password, AUser aUser)
     {
         var passwordAndSalt = authentication.ComputeHashAndSalt(password);
-        user.Password = passwordAndSalt.Password;
-        user.Salt = passwordAndSalt.Salt;
-        user.HashAlgorithmType = passwordAndSalt.HashAlgorithmType;
+        aUser.Password = passwordAndSalt.Password;
+        aUser.Salt = passwordAndSalt.Salt;
+        aUser.HashAlgorithmType = passwordAndSalt.HashAlgorithmType;
     }
 }

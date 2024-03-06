@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using CommonModels.Wrappers;
+using CommonInterfaces.Wrappers;
 
 namespace CommonModels.Converters;
 

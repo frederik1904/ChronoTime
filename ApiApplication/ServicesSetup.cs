@@ -18,15 +18,15 @@ public static class ServicesSetup
             .AddDbContext<ChronoContext>()
             .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
             .AddControllers();
-        
+
         // Setup Repositories
         new RepositoryDependencyBuilder()
             .Build(builder.Services);
-        
+
         //Setup Common
         new CommonDependencyBuilder()
             .Build(builder.Services);
-        
+
         //Setup Auth
         new AuthenticationDependencyInjectionBuilder()
             .Build(builder.Services);

@@ -9,7 +9,6 @@ namespace ApiApplication.Controllers.Authentication;
 [Route("api/auth/[controller]")]
 public class RegisterController(IUserService userService, ITransactionService transactionService) : ControllerBase
 {
-
     [HttpPost]
     public ActionResult<RegisterResponse> Post(RegisterRequest request)
     {

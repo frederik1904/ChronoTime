@@ -20,9 +20,9 @@ void RegisterServices()
         .SetBasePath(baseDirectory)
         .AddJsonFile("appsettings.Development.json")
         .AddJsonFile("appsettings.json", true)
-        .Build();   
+        .Build();
 
-    services.AddOptions();   
+    services.AddOptions();
     services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
     services.AddSingleton<IAppSettings, AppSettingsSingleton>();
     services.AddDbContext<ChronoContext>();
@@ -44,4 +44,3 @@ void DisposeServices()
 RegisterServices();
 
 DisposeServices();
-

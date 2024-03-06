@@ -1,6 +1,5 @@
-﻿
-using CommonInterfaces.Configuration;
-using CommonModels.Wrappers;
+﻿using CommonInterfaces.Configuration;
+using CommonInterfaces.Wrappers;
 
 namespace Configuration;
 

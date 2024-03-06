@@ -1,4 +1,4 @@
-﻿using CommonModels.Wrappers;
+﻿using CommonInterfaces.Wrappers;
 using static Common.Models.Validation.ValidationResponseType;
 
 namespace Common.Models.Validation;

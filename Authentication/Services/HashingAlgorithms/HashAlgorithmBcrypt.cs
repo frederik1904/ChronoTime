@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using CommonInterfaces.Models.Authentication;
-using CommonModels.Wrappers;
+using CommonInterfaces.Wrappers;
 
 namespace Authentication.Services.HashingAlgorithms;
 

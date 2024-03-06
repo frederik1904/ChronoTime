@@ -1,15 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace CommonModels.Wrappers;
+namespace CommonInterfaces.Wrappers;
 
-public class Secret<T>
+public class Secret<T>(T secretValue)
 {
-    public Secret(T secretValue)
-    {
-        SecretValue = secretValue;
-    }
-
-    [JsonIgnore] private T SecretValue { get; }
+    [JsonIgnore] private T SecretValue { get; } = secretValue;
 
     public T ExposeSecret()
     {

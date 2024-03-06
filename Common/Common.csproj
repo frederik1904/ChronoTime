@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Repository\Repository.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Models\" />
+        <ProjectReference Include="..\Repository\Repository.csproj"/>
     </ItemGroup>
 </Project>

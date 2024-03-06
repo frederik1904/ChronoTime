@@ -5,7 +5,7 @@ using Authentication.Services.HashingAlgorithms;
 using CommonInterfaces.Configuration;
 using CommonInterfaces.Models.Authentication;
 using CommonInterfaces.Services.Authentication;
-using CommonModels.Wrappers;
+using CommonInterfaces.Wrappers;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Authentication.Services;

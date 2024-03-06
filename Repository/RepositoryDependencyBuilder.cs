@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Repository.Models.TimeManagement;
 using Repository.Repositories;
 
 namespace Repository;
@@ -7,7 +8,9 @@ public class RepositoryDependencyBuilder
 {
     private Dictionary<Type, Type> _dependencies = new()
     {
-        {typeof(UserRepository), typeof(UserRepository)}
+        { typeof(UserRepository), typeof(UserRepository) },
+        { typeof(TimeRegistrationRepository), typeof(TimeRegistrationRepository) },
+        { typeof(TopicRepository), typeof(TopicRepository) }
     };
 
 
@@ -16,7 +19,7 @@ public class RepositoryDependencyBuilder
         _dependencies.Add(interfaceType, implementationType);
         return this;
     }
-    
+
     public RepositoryDependencyBuilder AddDependency(Type implementationType)
     {
         return AddDependency(implementationType, implementationType);
@@ -25,8 +28,6 @@ public class RepositoryDependencyBuilder
     public void Build(IServiceCollection services)
     {
         foreach (var (interfaceType, implementationType) in _dependencies)
-        {
             services.AddScoped(interfaceType, implementationType);
-        }
     }
 }

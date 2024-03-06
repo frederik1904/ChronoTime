@@ -1,7 +1,7 @@
 ﻿using Common.Models.Validation;
 using CommonInterfaces.Models;
 using CommonInterfaces.Services.Authentication;
-using CommonModels.Wrappers;
+using CommonInterfaces.Wrappers;
 
 namespace CommonInterfaces.Services;
 
@@ -9,9 +9,9 @@ public interface IUserService : ISecurityUserService
 {
     IEnumerable<Guid> GetAllUserIds();
 
-    IUser? GetUserByEmail(String email);
-    
-    bool CheckIfPasswordsMatchAndUpgradeIfNeeded(IUser user, Secret<string> password);
-    
-    IUser? RegisterUser(ValidatedUserApplicant validatedApplicantValidatedObject);
+    AUser? GetUserByEmail(string email);
+
+    bool CheckIfPasswordsMatchAndUpgradeIfNeeded(AUser aUser, Secret<string> password);
+
+    AUser? RegisterUser(ValidatedUserApplicant validatedApplicantValidatedObject);
 }

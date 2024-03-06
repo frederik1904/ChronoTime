@@ -4,7 +4,7 @@ namespace ApiApplication.Controllers.Authentication.Models;
 
 public class RegisterResponse
 {
-    public RegisterResponse(IUser? user)
+    public RegisterResponse(CommonInterfaces.Models.AUser? user)
     {
         Username = user.Username;
         Email = user.Email;

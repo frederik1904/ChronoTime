@@ -8,7 +8,7 @@ public abstract class BaseRepository<T> where T : class, IBaseEntity
 
     protected BaseRepository(ChronoContext chronoContext)
     {
-        this.ChronoContext = chronoContext;
+        ChronoContext = chronoContext;
     }
 
     public T? GetById(Guid id)
@@ -23,7 +23,7 @@ public abstract class BaseRepository<T> where T : class, IBaseEntity
 
     public T New(T element)
     {
-        return (T)ChronoContext.Add(new()).Entity;
+        return (T)ChronoContext.Add(new object()).Entity;
     }
 
     public T Save(T element)

@@ -1,5 +1,5 @@
 ﻿using CommonInterfaces.Models.Authentication;
-using CommonModels.Wrappers;
+using CommonInterfaces.Wrappers;
 
 namespace Authentication.Services.HashingAlgorithms;
 
@@ -9,7 +9,7 @@ public interface IHashAlgorithm
         new()
         {
             { HashAlgorithmType.Bcrypt, new HashAlgorithmBcrypt() },
-            { HashAlgorithmType.Sha256, new HashAlgorithmSha256() },
+            { HashAlgorithmType.Sha256, new HashAlgorithmSha256() }
         };
 
     public PasswordSalt ComputeHashAndSalt(Secret<string> password);

@@ -8,7 +8,7 @@ public class AuthenticationDependencyInjectionBuilder
 {
     private Dictionary<Type, Type> _dependencies = new()
     {
-        {typeof(IAuthentication), typeof(JwtAuthentication)}
+        { typeof(IAuthentication), typeof(JwtAuthentication) }
     };
 
 
@@ -17,7 +17,7 @@ public class AuthenticationDependencyInjectionBuilder
         _dependencies.Add(interfaceType, implementationType);
         return this;
     }
-    
+
     public AuthenticationDependencyInjectionBuilder AddDependency(Type implementationType)
     {
         return AddDependency(implementationType, implementationType);
@@ -26,8 +26,6 @@ public class AuthenticationDependencyInjectionBuilder
     public void Build(IServiceCollection services)
     {
         foreach (var (interfaceType, implementationType) in _dependencies)
-        {
             services.AddScoped(interfaceType, implementationType);
-        }
     }
 }

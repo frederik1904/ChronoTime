@@ -15,7 +15,7 @@ public class TransactionServiceService(ChronoContext context) : ITransactionServ
 
         context.SaveChanges();
         transactionScope.Complete();
-            
+
         return result;
     }
 }

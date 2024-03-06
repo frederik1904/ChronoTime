@@ -4,6 +4,7 @@ using Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Repository.Models;
+using Repository.Models.TimeManagement;
 
 namespace Repository;
 
@@ -12,21 +13,21 @@ public class ChronoContext(IAppSettings appSettings) : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql(
-            appSettings.GetConnectionString().ExposeSecret(), 
+            appSettings.GetConnectionString().ExposeSecret(),
             b => b.MigrationsAssembly("DatabaseMigrationHandler")
-            );
+        );
     }
-    
-    public DbSet<User> Users { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    public DbSet<User> Users { get; set; }
+    public DbSet<Topic> Topics { get; set; }
+    public DbSet<TimeRegistration> TimeRegistrations { get; set; }
+protected override void OnModelCreating(ModelBuilder builder)
     {
     }
-    
+
     private void PreSave()
     {
         foreach (var entry in ChangeTracker.Entries())
-        {
             if (entry.Entity is IBaseEntity baseEntity)
             {
                 var now = DateTime.UtcNow;
@@ -47,7 +48,6 @@ public class ChronoContext(IAppSettings appSettings) : DbContext
                         throw new ArgumentOutOfRangeException();
                 }
             }
-        }
     }
 
     public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
@@ -65,6 +65,6 @@ public class ChronoContext(IAppSettings appSettings) : DbContext
 
     public T SaveInDb<T>(object o)
     {
-        return (T)this.Add(o).Entity;
+        return (T)Add(o).Entity;
     }
 }

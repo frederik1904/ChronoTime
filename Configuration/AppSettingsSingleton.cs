@@ -1,5 +1,5 @@
 using CommonInterfaces.Configuration;
-using CommonModels.Wrappers;
+using CommonInterfaces.Wrappers;
 using Microsoft.Extensions.Options;
 
 namespace Configuration;
