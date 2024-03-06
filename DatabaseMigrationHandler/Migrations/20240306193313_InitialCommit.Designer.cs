@@ -12,8 +12,8 @@ using Repository;
 namespace DatabaseMigrationHandler.Migrations
 {
     [DbContext(typeof(ChronoContext))]
-    [Migration("20240306182956_AddedInitialTimeregistrationsModels")]
-    partial class AddedInitialTimeregistrationsModels
+    [Migration("20240306193313_InitialCommit")]
+    partial class InitialCommit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,36 +24,6 @@ namespace DatabaseMigrationHandler.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("CommonInterfaces.Models.TimeManagement.Topic", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("Changed")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(5)
-                        .HasColumnType("character varying(5)");
-
-                    b.Property<string>("DisplayName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Topic");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Topic");
-
-                    b.UseTphMappingStrategy();
-                });
 
             modelBuilder.Entity("Repository.Models.TimeManagement.TimeRegistration", b =>
                 {
@@ -70,6 +40,9 @@ namespace DatabaseMigrationHandler.Migrations
                     b.Property<Guid?>("TopicId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("ValidFrom")
                         .HasColumnType("timestamp with time zone");
 
@@ -80,7 +53,30 @@ namespace DatabaseMigrationHandler.Migrations
 
                     b.HasIndex("TopicId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("TimeRegistrations");
+                });
+
+            modelBuilder.Entity("Repository.Models.TimeManagement.Topic", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Changed")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Topics");
                 });
 
             modelBuilder.Entity("Repository.Models.User", b =>
@@ -118,20 +114,21 @@ namespace DatabaseMigrationHandler.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Repository.Models.TimeManagement.Topic", b =>
-                {
-                    b.HasBaseType("CommonInterfaces.Models.TimeManagement.Topic");
-
-                    b.HasDiscriminator().HasValue("Topic");
-                });
-
             modelBuilder.Entity("Repository.Models.TimeManagement.TimeRegistration", b =>
                 {
-                    b.HasOne("CommonInterfaces.Models.TimeManagement.Topic", "Topic")
+                    b.HasOne("Repository.Models.TimeManagement.Topic", "Topic")
                         .WithMany()
                         .HasForeignKey("TopicId");
 
+                    b.HasOne("Repository.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Topic");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

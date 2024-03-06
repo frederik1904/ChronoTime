@@ -2,7 +2,7 @@
 
 namespace CommonInterfaces.Models.TimeManagement;
 
-public abstract class Topic : IBaseEntity
+public abstract class ATopic : IBaseEntity
 {
     public string DisplayName { get; set; }
     public Guid Id { get; set; }

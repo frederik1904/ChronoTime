@@ -1,8 +1,7 @@
 ﻿using CommonInterfaces.Configuration;
+using CommonInterfaces.Models;
 using CommonInterfaces.Models.BaseEntities;
-using Configuration;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Repository.Models;
 using Repository.Models.TimeManagement;
 
@@ -21,8 +20,12 @@ public class ChronoContext(IAppSettings appSettings) : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Topic> Topics { get; set; }
     public DbSet<TimeRegistration> TimeRegistrations { get; set; }
-protected override void OnModelCreating(ModelBuilder builder)
+
+    protected override void OnModelCreating(ModelBuilder builder)
     {
+        // builder.Entity<User>().ToTable("USER");
+        // builder.Entity<Topic>().ToTable("TOPIC");
+        // builder.Entity<TimeRegistration>().ToTable("TIME_REGISTRATION");
     }
 
     private void PreSave()

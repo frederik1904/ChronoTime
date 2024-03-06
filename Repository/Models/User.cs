@@ -1,6 +1,5 @@
 ﻿using CommonInterfaces.Models;
 using CommonInterfaces.Models.Authentication;
-using CommonInterfaces.Models.BaseEntities;
 
 namespace Repository.Models;
 

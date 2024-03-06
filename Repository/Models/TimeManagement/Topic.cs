@@ -2,6 +2,6 @@
 
 namespace Repository.Models.TimeManagement;
 
-public class Topic(string displayName) : CommonInterfaces.Models.TimeManagement.Topic
+public class Topic(string displayName) : ATopic
 {
 }

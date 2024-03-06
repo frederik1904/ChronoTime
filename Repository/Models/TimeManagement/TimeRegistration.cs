@@ -2,6 +2,8 @@
 
 namespace Repository.Models.TimeManagement;
 
-public class TimeRegistration : CommonInterfaces.Models.TimeManagement.TimeRegistration
+public class TimeRegistration : ATimeRegistration
 {
+    public virtual Topic? Topic { get; set; }
+    public virtual User User { get; set; }
 }
