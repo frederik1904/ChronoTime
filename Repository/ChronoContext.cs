@@ -1,9 +1,8 @@
 ﻿using CommonInterfaces.Configuration;
-using CommonInterfaces.Models;
 using CommonInterfaces.Models.BaseEntities;
+using CommonInterfaces.Models.Database;
+using CommonInterfaces.Models.Database.TimeManagement;
 using Microsoft.EntityFrameworkCore;
-using Repository.Models;
-using Repository.Models.TimeManagement;
 
 namespace Repository;
 

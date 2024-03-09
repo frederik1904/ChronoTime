@@ -1,8 +1,8 @@
 ﻿using CommonInterfaces.Models.BaseEntities;
 
-namespace CommonInterfaces.Models.TimeManagement;
+namespace CommonInterfaces.Models.Database.TimeManagement;
 
-public abstract class ATopic : IBaseEntity
+public class Topic : IBaseEntity
 {
     public string DisplayName { get; set; }
     public Guid Id { get; set; }

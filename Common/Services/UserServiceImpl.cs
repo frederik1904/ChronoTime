@@ -1,12 +1,9 @@
 ﻿using Common.Models.Validation;
-using CommonInterfaces.Configuration;
-using CommonInterfaces.Models;
-using CommonInterfaces.Models.Authentication;
 using CommonInterfaces.Services;
 using CommonInterfaces.Services.Authentication;
 using CommonInterfaces.Wrappers;
-using Repository.Models;
 using Repository.Repositories;
+using User = CommonInterfaces.Models.Database.User;
 
 namespace Common.Services;
 
@@ -17,24 +14,24 @@ public class UserServiceImpl(UserRepository userRepository, IAuthentication auth
         return userRepository.GetAll().Select(user => user.Id).ToList();
     }
 
-    public AUser? GetUserByEmail(string email)
+    public User? GetUserByEmail(string email)
     {
         return userRepository.GetByEmail(email);
     }
 
-    public bool CheckIfPasswordsMatchAndUpgradeIfNeeded(AUser aUser, Secret<string> password)
+    public bool CheckIfPasswordsMatchAndUpgradeIfNeeded(User user, Secret<string> password)
     {
-        var doesMatch = authentication.ComparePasswords(aUser, password);
+        var doesMatch = authentication.ComparePasswords(user, password);
 
-        if (doesMatch && aUser.HashAlgorithmType != authentication.GetCurrentAlgorithmType())
-            UpdatePasswordForUser(password, aUser);
+        if (doesMatch && user.HashAlgorithmType != authentication.GetCurrentAlgorithmType())
+            UpdatePasswordForUser(password, user);
 
         return doesMatch;
     }
 
-    public AUser? RegisterUser(ValidatedUserApplicant validatedUser)
+    public User? RegisterUser(ValidatedUserApplicant validatedUser)
     {
-        var user = new Repository.Models.User()
+        var user = new User()
         {
             Email = validatedUser.Email.Email,
             Username = validatedUser.Username.Username,
@@ -45,16 +42,16 @@ public class UserServiceImpl(UserRepository userRepository, IAuthentication auth
         return userRepository.Save(user);
     }
 
-    public AUser? GetById(Guid guid)
+    public User? GetById(Guid guid)
     {
         return userRepository.GetById(guid);
     }
 
-    private void UpdatePasswordForUser(Secret<string> password, AUser aUser)
+    private void UpdatePasswordForUser(Secret<string> password, User user)
     {
         var passwordAndSalt = authentication.ComputeHashAndSalt(password);
-        aUser.Password = passwordAndSalt.Password;
-        aUser.Salt = passwordAndSalt.Salt;
-        aUser.HashAlgorithmType = passwordAndSalt.HashAlgorithmType;
+        user.Password = passwordAndSalt.Password;
+        user.Salt = passwordAndSalt.Salt;
+        user.HashAlgorithmType = passwordAndSalt.HashAlgorithmType;
     }
 }

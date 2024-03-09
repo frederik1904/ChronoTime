@@ -1,18 +1,18 @@
-﻿using CommonInterfaces.Models;
-using CommonInterfaces.Models.Authentication;
+﻿using CommonInterfaces.Models.Authentication;
+using CommonInterfaces.Models.BaseEntities;
 
-namespace Repository.Models;
+namespace CommonInterfaces.Models.Database;
 
-public class User : AUser
+public class User : IBaseEntity, ISecurityUser
 {
-    public Guid Id { get; set; }
-    public DateTime Created { get; set; }
-    public DateTime Changed { get; set; }
     public string Username { get; set; }
     public string Email { get; set; }
     public byte[]? Salt { get; set; }
     public byte[] Password { get; set; }
     public HashAlgorithmType HashAlgorithmType { get; set; }
+    public Guid Id { get; set; }
+    public DateTime Created { get; set; }
+    public DateTime Changed { get; set; }
 
     public Guid GetId()
     {

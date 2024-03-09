@@ -8,7 +8,8 @@ public class UserCredentialsResponse(Guid id, string email, string username)
     public string Email { get; set; } = email;
     public string Username { get; set; } = username;
 
-    public UserCredentialsResponse(CommonInterfaces.Models.AUser aUser) : this(aUser.Id, aUser.Email, aUser.Username)
+    public UserCredentialsResponse(CommonInterfaces.Models.Database.User user) : this(user.Id, user.Email,
+        user.Username)
     {
     }
 }

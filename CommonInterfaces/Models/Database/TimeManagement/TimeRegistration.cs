@@ -1,11 +1,11 @@
 ﻿using CommonInterfaces.Models.BaseEntities;
 
-namespace CommonInterfaces.Models.TimeManagement;
+namespace CommonInterfaces.Models.Database.TimeManagement;
 
-public abstract class ATimeRegistration : IBaseTemporalEntity
+public class TimeRegistration : IBaseTemporalEntity
 {
-    public virtual ATopic? Topic { get; set; }
-    public virtual AUser User { get; }
+    public virtual Topic? Topic { get; set; }
+    public virtual User User { get; }
     public Guid Id { get; set; }
     public DateTime Created { get; set; }
     public DateTime Changed { get; set; }

@@ -1,4 +1,4 @@
-﻿using Repository.Models;
+﻿using CommonInterfaces.Models.Database;
 
 namespace Repository.Repositories;
 
