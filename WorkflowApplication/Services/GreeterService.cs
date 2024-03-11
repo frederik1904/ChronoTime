@@ -1,19 +1,16 @@
+using CommonInterfaces.Services;
 using Grpc.Core;
+using Repository.Repositories;
 using WorkflowApplication;
+using WorkflowCore.Interface;
 
 namespace WorkflowApplication.Services;
 
-public class GreeterService : Greeter.GreeterBase
+public class GreeterService(ILogger<GreeterService> logger, IWorkflowHost workflowHost) : Greeter.GreeterBase
 {
-    private readonly ILogger<GreeterService> _logger;
-
-    public GreeterService(ILogger<GreeterService> logger)
-    {
-        _logger = logger;
-    }
-
     public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
     {
+        workflowHost.StartWorkflow("StartStopRegisterTimeFlow");
         return Task.FromResult(new HelloReply
         {
             Message = "Hello " + request.Name
