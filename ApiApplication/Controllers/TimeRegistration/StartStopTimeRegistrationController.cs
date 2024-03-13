@@ -28,7 +28,17 @@ public class StartStopTimeRegistrationController(IAuthentication authentication,
         var client = new Greeter.GreeterClient(channel);
         var headers = new Metadata();
         headers.Add("Authorization", $"Bearer {token}");
-        var resp = client.SayHello(new HelloRequest(){Name = user.Username}, headers);
+        HelloReply? resp = null;
+        try
+        {
+            var request = new HelloRequest();
+            request.Name = user.Username;
+            resp = client.SayHello(request, headers);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
         
         return resp?.Message ?? "No response";
     }
