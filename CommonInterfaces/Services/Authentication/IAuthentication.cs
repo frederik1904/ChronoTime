@@ -1,5 +1,6 @@
 ﻿using CommonInterfaces.Models.Authentication;
 using CommonInterfaces.Wrappers;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CommonInterfaces.Services.Authentication;
 

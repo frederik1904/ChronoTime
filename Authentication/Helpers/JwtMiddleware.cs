@@ -1,5 +1,6 @@
 ﻿using CommonInterfaces.Configuration;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using CommonInterfaces.Services.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +15,7 @@ public class JwtMiddleware(IAppSettings appSettings, RequestDelegate next)
     {
         var token = context.Request.Headers.Authorization.FirstOrDefault()?.Split(" ").Last();
 
-        if (token != null)
+        if (!string.IsNullOrEmpty(token))
             AttachUserToContext(context, userService, token);
 
         await next(context);
@@ -43,7 +44,12 @@ public class JwtMiddleware(IAppSettings appSettings, RequestDelegate next)
             // attach user to context on successful jwt validation
             var user = userService.GetById(userId);
             context.Items["User"] = userId.ToString();
-            context.Items["CLAIM_TENANT_ID"] = user.GetTenantId().ToString();
+            var identity = new ClaimsIdentity(new List<Claim>
+            {
+                new Claim("UserId", userId.ToString(), ClaimValueTypes.String)
+            }, "CUSTOM");
+            context.User = new ClaimsPrincipal(identity);
+            // context.Items["CLAIM_TENANT_ID"] = user.GetTenantId().ToString();
         }
         catch (Exception e)
         {
