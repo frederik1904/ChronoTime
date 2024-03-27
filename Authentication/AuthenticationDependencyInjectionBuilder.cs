@@ -8,7 +8,8 @@ public class AuthenticationDependencyInjectionBuilder
 {
     private Dictionary<Type, Type> _dependencies = new()
     {
-        { typeof(IAuthentication), typeof(JwtAuthentication) }
+        { typeof(IAuthentication), typeof(JwtAuthentication) },
+        {typeof(IContextProvider), typeof(ContextProvider)}
     };
 
 

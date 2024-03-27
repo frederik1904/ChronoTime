@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Repository;
+using WorkflowApplication.MiddleWares;
 using WorkflowApplication.Services;
 using WorkflowApplication.Workflows.StartStopRegisterTime;
 using WorkflowApplication.Workflows.StartStopRegisterTime.Listners;
@@ -30,6 +31,7 @@ builder.Services.AddGrpc()
     .AddSingleton<IPostConfigureOptions<JwtBearerOptions>, CustomJwtBearerOptionsPostConfigureOptions>()
     .AddSingleton<SecurityTokenValidator>()
     .AddSingleton<IAuthorizationHandler, TestRequirementHandler>()
+    .AddWorkflowStepMiddleware<PreContextMiddleware>()
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer();
     builder.Services.AddAuthorization(options =>

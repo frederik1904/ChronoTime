@@ -22,7 +22,7 @@ namespace DatabaseMigrationHandler.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Repository.Models.TimeManagement.TimeRegistration", b =>
+            modelBuilder.Entity("CommonInterfaces.Models.Database.TimeManagement.TimeRegistration", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,7 +55,7 @@ namespace DatabaseMigrationHandler.Migrations
                     b.ToTable("TimeRegistrations");
                 });
 
-            modelBuilder.Entity("Repository.Models.TimeManagement.Topic", b =>
+            modelBuilder.Entity("CommonInterfaces.Models.Database.TimeManagement.Topic", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,7 +76,7 @@ namespace DatabaseMigrationHandler.Migrations
                     b.ToTable("Topics");
                 });
 
-            modelBuilder.Entity("Repository.Models.User", b =>
+            modelBuilder.Entity("CommonInterfaces.Models.Database.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -108,16 +108,19 @@ namespace DatabaseMigrationHandler.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Repository.Models.TimeManagement.TimeRegistration", b =>
+            modelBuilder.Entity("CommonInterfaces.Models.Database.TimeManagement.TimeRegistration", b =>
                 {
-                    b.HasOne("Repository.Models.TimeManagement.Topic", "Topic")
+                    b.HasOne("CommonInterfaces.Models.Database.TimeManagement.Topic", "Topic")
                         .WithMany()
                         .HasForeignKey("TopicId");
 
-                    b.HasOne("Repository.Models.User", "User")
+                    b.HasOne("CommonInterfaces.Models.Database.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

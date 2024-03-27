@@ -22,9 +22,9 @@ public class ChronoContext(IAppSettings appSettings) : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        // builder.Entity<User>().ToTable("USER");
-        // builder.Entity<Topic>().ToTable("TOPIC");
-        // builder.Entity<TimeRegistration>().ToTable("TIME_REGISTRATION");
+        builder.Entity<User>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
     }
 
     private void PreSave()
