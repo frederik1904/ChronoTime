@@ -3,6 +3,7 @@ using CommonInterfaces.Models.Database.TimeManagement;
 using CommonInterfaces.Services;
 using CommonInterfaces.Services.Authentication;
 using Repository.Repositories;
+using WorkflowApplication.BaseWorkflow;
 using WorkflowApplication.Workflows.StartStopRegisterTime.Models;
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
@@ -14,18 +15,25 @@ public class Persist(
     UserRepository userRepository,
     ITransactionService transactionService,
     IContextProvider contextProvider)
-    : StepBody
+    : BaseWorkflowStepBody(contextProvider)
 {
+    private IContextProvider contextProvider = contextProvider;
+
     public DateTime StartTime { get; set; }
     public DateTime StopTime { get; set; }
 
-    public override ExecutionResult Run(IStepExecutionContext context)
+    protected override ExecutionResult MiddlewareRun(IStepExecutionContext context)
     {
         Console.WriteLine($"Persisting: {StartTime} - {StopTime}");
         transactionService.Transactional(() =>
         {
-            Console.WriteLine(contextProvider.GetApplicationContext()?.UserId ?? null);
-            User user = userRepository.GetById(Guid.Parse(contextProvider.GetApplicationContext().UserId));
+            if (!contextProvider.GetApplicationContext().UserId.HasValue)
+            {
+                throw new Exception("No user is defined");
+            }
+            
+            var userId = contextProvider.GetApplicationContext().UserId!.Value;
+            User user = userRepository.GetById(userId);
             TimeRegistration tr = new TimeRegistration();
             tr.User = user;
             tr.ValidFrom = StartTime.ToUniversalTime();

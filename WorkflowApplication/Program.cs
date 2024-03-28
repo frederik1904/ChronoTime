@@ -4,23 +4,35 @@ using Authentication.Helpers;
 using Authentication.Services;
 using Common;
 using CommonInterfaces.Configuration;
-using CommonInterfaces.Services.Authentication;
 using Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Repository;
-using WorkflowApplication.MiddleWares;
+using WorkflowApplication.BaseWorkflow;
 using WorkflowApplication.Services;
 using WorkflowApplication.Workflows.StartStopRegisterTime;
 using WorkflowApplication.Workflows.StartStopRegisterTime.Listners;
 using WorkflowApplication.Workflows.StartStopRegisterTime.Models;
 using WorkflowCore.Interface;
+using WorkflowCore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+
+// Get the types of all classes that derive from StepBody
+var stepBodyTypes = AppDomain.CurrentDomain.GetAssemblies()
+    .SelectMany(assembly => assembly.GetTypes())
+    .Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(BaseWorkflowStepBody)));
+
+// Register all of the found types as Transient services
+foreach (var type in stepBodyTypes)
+{
+    builder.Services.AddTransient(type);
+}
+
 builder.Services.AddGrpc()
     .Services
     .AddWorkflow()
@@ -31,7 +43,6 @@ builder.Services.AddGrpc()
     .AddSingleton<IPostConfigureOptions<JwtBearerOptions>, CustomJwtBearerOptionsPostConfigureOptions>()
     .AddSingleton<SecurityTokenValidator>()
     .AddSingleton<IAuthorizationHandler, TestRequirementHandler>()
-    .AddWorkflowStepMiddleware<PreContextMiddleware>()
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer();
     builder.Services.AddAuthorization(options =>

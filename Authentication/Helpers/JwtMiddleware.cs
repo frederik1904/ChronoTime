@@ -67,7 +67,7 @@ public class JwtMiddleware(IAppSettings appSettings, RequestDelegate next)
             return;
         contextProvider.SetApplicationContext(new ApplicationContext
         {
-            UserId = user.GetId().ToString()
+            UserId = user.GetId()
         });
     }
 }

@@ -16,8 +16,13 @@ public class UserCredentialsController(ISecurityUserService userService, IContex
     public UserCredentialsResponse Get()
     {
         var context = contextProvider.GetApplicationContext();
-        var userId = context.UserId;
-        var user = userService.GetById(Guid.Parse(userId))!;
+        if (!context.UserId.HasValue)
+        {
+            throw new Exception("User does not exist");
+        }
+        var userId = context.UserId.Value;
+
+        var user = userService.GetById(userId)!;
 
         return new UserCredentialsResponse(user);
     }
