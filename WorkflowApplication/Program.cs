@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Authentication;
 using Authentication.Helpers;
 using Authentication.Services;
@@ -6,30 +5,14 @@ using Common;
 using CommonInterfaces.Configuration;
 using Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using Repository;
-using Workflow.Base;
-using Workflow.Workflows.StartStopRegisterTime;
-using Workflow.Workflows.StartStopRegisterTime.Models;
+using Workflow;
 using WorkflowApplication.Services;
-using WorkflowCore.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-
-// Get the types of all classes that derive from StepBody
-var stepBodyTypes = AppDomain.CurrentDomain.GetAssemblies()
-    .SelectMany(assembly => assembly.GetTypes())
-    .Where(type => type is { IsClass: true, IsAbstract: false } && type.IsSubclassOf(typeof(BaseWorkflowStepBody)));
-
-// Register all of the found types as Transient services
-foreach (var type in stepBodyTypes)
-{
-    builder.Services.AddTransient(type);
-}
 
 builder.Services.AddGrpc()
     .Services
@@ -38,8 +21,6 @@ builder.Services.AddGrpc()
     .AddSingleton<IAppSettings, AppSettingsSingleton>()
     .AddDbContext<ChronoContext>()
     .AddSingleton<IPostConfigureOptions<JwtBearerOptions>, CustomJwtBearerOptionsPostConfigureOptions>()
-    .AddSingleton<SecurityTokenValidator>()
-    .AddSingleton<IAuthorizationHandler, TestRequirementHandler>()
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer();
     builder.Services.AddAuthorization(options =>
@@ -60,6 +41,9 @@ new CommonDependencyBuilder()
 new AuthenticationDependencyInjectionBuilder()
     .Build(builder.Services);
 
+new WorkflowDependencyBuilder()
+    .Build(builder.Services);
+    
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -73,11 +57,8 @@ app.MapGet("/",
     () =>
         "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
-
-var workflow = app.Services.GetService<IWorkflowHost>();
-Debug.Assert(workflow != null, nameof(workflow) + " != null");
-workflow.RegisterWorkflow<StartStopRegisterTimeFlow, ContextData>();
-workflow.Start();
+WorkflowPostBuildConfiguration.Pre(app.Services);
 
 app.Run();
-workflow.Stop();
+
+WorkflowPostBuildConfiguration.Post();
