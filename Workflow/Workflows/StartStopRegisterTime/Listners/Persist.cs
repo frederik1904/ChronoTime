@@ -3,12 +3,11 @@ using CommonInterfaces.Models.Database.TimeManagement;
 using CommonInterfaces.Services;
 using CommonInterfaces.Services.Authentication;
 using Repository.Repositories;
-using WorkflowApplication.BaseWorkflow;
-using WorkflowApplication.Workflows.StartStopRegisterTime.Models;
+using Workflow.Base;
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
 
-namespace WorkflowApplication.Workflows.StartStopRegisterTime.Listners;
+namespace Workflow.Workflows.StartStopRegisterTime.Listners;
 
 public class Persist(
     TimeRegistrationRepository timeRegistrationRepository,

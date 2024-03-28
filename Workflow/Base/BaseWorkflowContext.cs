@@ -1,6 +1,6 @@
 using CommonInterfaces.Models.Authentication;
 
-namespace WorkflowApplication.BaseWorkflow;
+namespace Workflow.Base;
 
 public abstract class BaseWorkflowContext
 {

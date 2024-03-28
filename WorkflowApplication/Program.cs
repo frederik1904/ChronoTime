@@ -9,13 +9,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using Repository;
-using WorkflowApplication.BaseWorkflow;
+using Workflow.Base;
+using Workflow.Workflows.StartStopRegisterTime;
+using Workflow.Workflows.StartStopRegisterTime.Models;
 using WorkflowApplication.Services;
-using WorkflowApplication.Workflows.StartStopRegisterTime;
-using WorkflowApplication.Workflows.StartStopRegisterTime.Listners;
-using WorkflowApplication.Workflows.StartStopRegisterTime.Models;
 using WorkflowCore.Interface;
-using WorkflowCore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +23,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Get the types of all classes that derive from StepBody
 var stepBodyTypes = AppDomain.CurrentDomain.GetAssemblies()
     .SelectMany(assembly => assembly.GetTypes())
-    .Where(type => type.IsClass && !type.IsAbstract && type.IsSubclassOf(typeof(BaseWorkflowStepBody)));
+    .Where(type => type is { IsClass: true, IsAbstract: false } && type.IsSubclassOf(typeof(BaseWorkflowStepBody)));
 
 // Register all of the found types as Transient services
 foreach (var type in stepBodyTypes)
@@ -39,7 +37,6 @@ builder.Services.AddGrpc()
     .Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)))
     .AddSingleton<IAppSettings, AppSettingsSingleton>()
     .AddDbContext<ChronoContext>()
-    .AddTransient<Persist>()
     .AddSingleton<IPostConfigureOptions<JwtBearerOptions>, CustomJwtBearerOptionsPostConfigureOptions>()
     .AddSingleton<SecurityTokenValidator>()
     .AddSingleton<IAuthorizationHandler, TestRequirementHandler>()

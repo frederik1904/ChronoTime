@@ -1,9 +1,9 @@
 using CommonInterfaces.Services.Authentication;
-using WorkflowApplication.Workflows.StartStopRegisterTime.Models;
+using Workflow.Workflows.StartStopRegisterTime.Models;
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
 
-namespace WorkflowApplication.BaseWorkflow;
+namespace Workflow.Base;
 
 public abstract class BaseWorkflowStepBody(IContextProvider contextProvider) : StepBody
 {

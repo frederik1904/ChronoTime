@@ -2,7 +2,7 @@ using Authentication.Helpers;
 using CommonInterfaces.Services.Authentication;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
-using WorkflowApplication.Workflows.StartStopRegisterTime.Models;
+using Workflow.Workflows.StartStopRegisterTime.Models;
 using WorkflowCore.Interface;
 
 namespace WorkflowApplication.Services;
